@@ -12,7 +12,18 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        APIClient.shared.getResult(page: 1) { (result) in
+            DispatchQueue.main.async(execute: {
+                switch result {
+                case .success(let d):
+                    print(d)
+                    break
+                default:
+                    AppUtility.shared.handleAPIResultError(result)
+                }
+            })
+        }
     }
 
 
